@@ -1,0 +1,40 @@
+# Core ML Stack
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.5.1
+scipy==1.13.1
+joblib==1.4.2
+
+# ML Experimentation
+torch==2.4.1
+torchvision==0.19.1
+
+# Explainability
+shap==0.45.0
+
+# Visualization
+plotly==5.23.0
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# Streamlit App
+streamlit==1.38.0
+
+# Configuration & Utilities
+python-dotenv==1.0.1
+pyyaml==6.0.1
+tqdm==4.66.5
+
+# Testing
+pytest==8.3.3
+pytest-mock==3.14.0
+
+# Code Quality
+ruff==0.6.9
+
+# LLM Integration (optional - for assistant)
+openai==1.40.3
+httpx==0.27.2
+
+# Optional: for local embeddings if needed
+sentence-transformers==3.0.1
