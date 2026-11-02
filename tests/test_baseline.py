@@ -173,7 +173,8 @@ class TestDataPreprocessing:
 
         # Training data should be standardized (mean ~0, std ~1)
         train_means = splits.X_train.mean()
-        train_stds = splits.X_train.std()
+        # StandardScaler scales with population variance (ddof=0).
+        train_stds = splits.X_train.std(ddof=0)
 
         # Allow small numerical differences
         assert np.allclose(train_means, 0, atol=1e-10), "Train features not centered"
@@ -496,11 +497,15 @@ class TestModelCard:
             std_importances=np.array([0.01]*5)
         )
 
-        model_card = generate_model_card(
-            Path("dummy.joblib"), test_result, [cv_result],
-            calibration, feature_importance, None,
-            0.5, {"f1": 0.86, "precision": 0.8, "recall": 0.9, "threshold": 0.5}
-        )
+        with patch(
+            "src.oncoguard.evaluate.load_model_artifact",
+            return_value={"model_name": "Test Model"},
+        ):
+            model_card = generate_model_card(
+                Path("dummy.joblib"), test_result, [cv_result],
+                calibration, feature_importance, None,
+                0.5, {"f1": 0.86, "precision": 0.8, "recall": 0.9, "threshold": 0.5}
+            )
 
         assert "model_details" in model_card
         assert "intended_use" in model_card
